@@ -13,15 +13,18 @@ public class GenerateTrace {
 	
 	public GenerateTrace(int offlineSize, int onlineSize)
 	{
-		String offlineTrace = "../data/MU.1.5meters.offline.trace";
-		String onlineTrace = "../data/MU.1.5meters.online.trace";
-
-		File offlineFile = new File(offlineTrace);
-		Parser offlineParser = new Parser(offlineFile);
-		File onlineFile = new File(onlineTrace);
-		Parser onlineParser = new Parser(onlineFile);
+		String offlineTrace = "data/MU.1.5meters.offline.trace";
+		String onlineTrace = "data/MU.1.5meters.online.trace";
 
 		MacFilterExplizit certifiedAP = new MacFilterExplizit();
+
+		// Construct parsers
+		File offlineFile = new File(offlineTrace);
+		System.out.println("Offline File: " +  offlineFile.getAbsoluteFile());
+		File onlineFile = new File(onlineTrace);
+		System.out.println("Online File: " +  onlineFile.getAbsoluteFile());
+		Parser offlineParser = new Parser(offlineFile);
+		Parser onlineParser = new Parser(onlineFile);
 
 		certifiedAP.add(MACAddress.parse("00:14:BF:B1:7C:54"));
 		certifiedAP.add(MACAddress.parse("00:16:B6:B7:5D:8F"));
@@ -39,7 +42,7 @@ public class GenerateTrace {
 		onlineParser.setMacFilter(certifiedAP);
 
 		try {
-			generatedTrace = new TraceGenerator(offlineParser, onlineParser,offlineSize,onlineSize);
+			generatedTrace = new TraceGenerator(offlineParser, onlineParser, offlineSize, onlineSize);
 		} catch (NumberFormatException e) 
 		{
 			e.printStackTrace();
