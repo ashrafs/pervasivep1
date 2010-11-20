@@ -13,7 +13,15 @@ public class Neighbour {
             return Math.sqrt(Math.pow(x1 - x2,2) + Math.pow(y1 - y2,2) + Math.pow(z1 - z2, 2));
     }
 	
-	//Returns a list of true and estimated positions based on k nearest neighbors
+	/** 
+	 * Compute and return a list of true and estimated positions
+	 * based on k nearest neighbors
+	 * 
+	 * @param k
+	 * @param onlineTrace
+	 * @param offlineTrace
+	 * @return
+	 */
 	public static ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>> getEstimatedPositions(int k, List<TraceEntry> onlineTrace, List<TraceEntry> offlineTrace)
 	{
 		ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>> teList = new ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>>();
@@ -26,8 +34,8 @@ public class Neighbour {
 			if(entry.getSignalStrengthSamples().getSortedAccessPoints().size() > 2)
 			{
 				List<MACAddress> arr = entry.getSignalStrengthSamples().getSortedAccessPoints().subList(0, 3);
-				
-				ss1 = entry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(0));
+				// Compute Nearest Neighbour cf. slides 39-40 from Week2SS.pdf
+				ss1 = entry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(0)); 
 				ss2 = entry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(1));
 				ss3 = entry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(2));
 
@@ -35,11 +43,9 @@ public class Neighbour {
 
 					if(offEntry.getSignalStrengthSamples().keySet().containsAll(arr))
 					{
-						double m1, m2, m3;
-						m1 = offEntry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(0));
-						m2 = offEntry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(1));
-						m3 = offEntry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(2));
-
+						double m1 = offEntry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(0));
+						double m2 = offEntry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(1));
+						double m3 = offEntry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(2));
 						double euclSignStrSpaceDist = euclidianDist(ss1, m1, ss2, m2, ss3, m3);
 
 						if(bestEntries.size() < k)
@@ -65,14 +71,11 @@ public class Neighbour {
 				int i;
 				for(i = 0; i < k; i++)
 				{
-					estimX += bestEntries.get(i).traceEntry.getGeoPosition().getX();
-					estimY += bestEntries.get(i).traceEntry.getGeoPosition().getY();
-					estimZ += bestEntries.get(i).traceEntry.getGeoPosition().getZ();
+					estimX = estimX + bestEntries.get(i).traceEntry.getGeoPosition().getX();
+					estimY = estimY + bestEntries.get(i).traceEntry.getGeoPosition().getY();
+					estimZ = estimZ + bestEntries.get(i).traceEntry.getGeoPosition().getZ();
 				}
-				estimX /= k; //mean position X
-				estimY /= k; //mean position Y
-				estimZ /= k; //mean position Z
-				GeoPosition estimatedPos = new GeoPosition(estimX, estimY, estimZ);
+				GeoPosition estimatedPos = new GeoPosition(estimX/k, estimY/k, estimZ/k); // create mean position
 				
 				teList.add(new TrueAndEstimatedPos<GeoPosition,GeoPosition>(truePos,estimatedPos));
 			}
@@ -88,23 +91,23 @@ class EntryWithDist
     
     public EntryWithDist(TraceEntry traceEntry, double distance)
     {
-            this.traceEntry = traceEntry; 
-            this.distance = distance;
+        this.traceEntry = traceEntry; 
+        this.distance = distance;
     }
     
     public int compareTo(EntryWithDist entry)
     {
-            return Double.compare(entry.distance, this.distance);
+        return Double.compare(entry.distance, this.distance);
     }
     
     public String toString()
     {
-            return String.valueOf(distance);
+        return String.valueOf(distance);
     }
 }
 
 class DistComparator implements Comparator<EntryWithDist> {
-	public int compare(EntryWithDist o1, EntryWithDist o2) {
-		return o2.compareTo(o1);	
+	public int compare(EntryWithDist ewd1, EntryWithDist ewd2) {
+		return ewd2.compareTo(ewd1);	
 	}
 }
