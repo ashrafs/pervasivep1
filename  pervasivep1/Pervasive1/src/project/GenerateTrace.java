@@ -26,7 +26,7 @@ public class GenerateTrace {
 		Parser offlineParser = new Parser(offlineFile);
 		Parser onlineParser = new Parser(onlineFile);
 
-		// Generate Trace from known Access Points
+		// Keep only known access points (yellow dots on the map ; cf. file MU.AP.positions)
 		certifiedAP.add(MACAddress.parse("00:14:BF:B1:7C:54"));
 		certifiedAP.add(MACAddress.parse("00:16:B6:B7:5D:8F"));
 		certifiedAP.add(MACAddress.parse("00:14:BF:B1:7C:57"));
@@ -43,6 +43,7 @@ public class GenerateTrace {
 		onlineParser.setMacFilter(certifiedAP);
 
 		try {
+			// Generate Trace from known Access Points
 			generatedTrace = new TraceGenerator(offlineParser, onlineParser, offlineSize, onlineSize);
 		} catch (NumberFormatException e) 
 		{
