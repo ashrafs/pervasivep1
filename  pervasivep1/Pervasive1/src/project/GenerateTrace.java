@@ -26,6 +26,7 @@ public class GenerateTrace {
 		Parser offlineParser = new Parser(offlineFile);
 		Parser onlineParser = new Parser(onlineFile);
 
+		// Generate Trace from known Access Points
 		certifiedAP.add(MACAddress.parse("00:14:BF:B1:7C:54"));
 		certifiedAP.add(MACAddress.parse("00:16:B6:B7:5D:8F"));
 		certifiedAP.add(MACAddress.parse("00:14:BF:B1:7C:57"));
