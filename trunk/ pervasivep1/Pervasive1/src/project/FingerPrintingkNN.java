@@ -3,13 +3,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 import org.pi4.locutil.GeoPosition;
 import org.pi4.locutil.io.TraceGenerator;
 import org.pi4.locutil.trace.TraceEntry;
 
+/**
+ * Finds the true and estimate position based on the empirical data
+ * available in the online and offline datasets
+ * @author Michaël Ludmann & Guillaume Depoyant
+ *
+ */
 public class FingerPrintingkNN {
 
 	private int k;
@@ -19,11 +23,15 @@ public class FingerPrintingkNN {
 	private TraceGenerator trace;
 	private static PrintStream fileOut;
 	private static PrintStream stdOut;
-	private List<TraceEntry> onlineTrace;
-	private List<TraceEntry> offlineTrace;
-	public Vector<Double> errorsTrueEsti = new Vector<Double>();
+	private ArrayList<TraceEntry> onlineTrace;
+	private ArrayList<TraceEntry> offlineTrace;
+	public ArrayList<Double> errorsTrueEsti = new ArrayList<Double>();
 	private static int NB_ITER = 100;
 	
+	/**
+     * Constructor
+	 * @param kParam
+	 */
 	public FingerPrintingkNN(int kParam) {
 		
 		offlineSize = 25;
@@ -73,6 +81,10 @@ public class FingerPrintingkNN {
 		System.setOut(stdOut);
 	}
 
+	/**
+	 * Main to test the class
+	 * @param args : input an integer k
+	 */
 	public static void main(String[] args) {
 
 		if(args.length > 0)
