@@ -6,17 +6,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
-import org.pi4.locutil.GeoPosition;
-
 public class ScoreNN {
-	
-	private static PrintStream fileOut;
-	private static PrintStream stdOut;
 	
 	public static void computeDistance(File fileInput){
 		
