@@ -22,7 +22,7 @@ public class Neighbour {
 	 * @param offlineTrace
 	 * @return
 	 */
-	public static ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>> getEstimatedPositions(int k, List<TraceEntry> onlineTrace, List<TraceEntry> offlineTrace)
+	public static ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>> computeTrueAndEstimPos(int k, List<TraceEntry> onlineTrace, List<TraceEntry> offlineTrace)
 	{
 		ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>> teList = new ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>>();
 		
