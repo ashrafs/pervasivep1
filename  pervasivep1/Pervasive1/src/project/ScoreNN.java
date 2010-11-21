@@ -63,25 +63,37 @@ public class ScoreNN {
 	
 	public static void main(String[] args)
 	{
-		String nameInput = "fingerPrinting1NNresults.txt";
-		File fileInput = new File(nameInput);
+		String nameInput = null;
+		//nameInput = "fingerPrinting1NNresults.txt";
 		
-		FileOutputStream fOut = null;
-		try {
-			fOut = new FileOutputStream("scoreNN.txt", false);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(args.length > 0 || nameInput != null )
+		{
+			if (nameInput == null)
+				nameInput = args[0];
+			
+			File fileInput = new File(nameInput);
+			
+			FileOutputStream fOut = null;
+			try {
+				fOut = new FileOutputStream("scoreNN.txt", false);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			PrintStream stdOut = System.out;
+			PrintStream fileOut = new PrintStream(fOut);
+			
+			System.setOut(fileOut);	
+	
+			computeDistance(fileInput);
+			
+			System.setOut(stdOut);	
 		}
-		
-		PrintStream stdOut = System.out;
-		PrintStream fileOut = new PrintStream(fOut);
-		
-		System.setOut(fileOut);	
-
-		computeDistance(fileInput);
-		
-		System.setOut(stdOut);	
+		else
+		{
+			System.out.println("Usage : need the name of the file in argument or define it in the main l.67");
+		}
 	}
 }
 
