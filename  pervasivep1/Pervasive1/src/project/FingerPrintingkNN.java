@@ -72,7 +72,7 @@ public class FingerPrintingkNN {
 		for(TrueAndEstimatedPos<GeoPosition,GeoPosition> tePos : tePosList)
 		{
 			//Keep errors between true and estimated positions for later plotting
-			errorsTrueEsti.add(tePos.getTruePos().distance(tePos.getEstimatedPos()));
+//			errorsTrueEsti.add(tePos.getTruePos().distance(tePos.getEstimatedPos()));
 			//Print true and estimated position on the same line
 			System.out.println(tePos.getTruePos().getX() + ", " + tePos.getTruePos().getY() + ", " + tePos.getTruePos().getZ() + " ; "+
 							   tePos.getEstimatedPos().getX() + ", " + tePos.getEstimatedPos().getY() + ", " + tePos.getEstimatedPos().getZ());

@@ -34,7 +34,7 @@ public class Neighbour {
 			if(entry.getSignalStrengthSamples().getSortedAccessPoints().size() > 2)
 			{
 				List<MACAddress> arr = entry.getSignalStrengthSamples().getSortedAccessPoints().subList(0, 3);
-				// Compute Nearest Neighbour cf. slides 39-40 from Week2SS.pdf
+				// Compute Nearest Neighbour as specified in slides 39-40 from Week2SS.pdf
 				ss1 = entry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(0)); 
 				ss2 = entry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(1));
 				ss3 = entry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(2));
@@ -75,7 +75,7 @@ public class Neighbour {
 					estimY = estimY + bestEntries.get(i).traceEntry.getGeoPosition().getY();
 					estimZ = estimZ + bestEntries.get(i).traceEntry.getGeoPosition().getZ();
 				}
-				GeoPosition estimatedPos = new GeoPosition(estimX/k, estimY/k, estimZ/k); // create mean position
+				GeoPosition estimatedPos = new GeoPosition(estimX/k, estimY/k, estimZ/k); // create average position
 				
 				teList.add(new TrueAndEstimatedPos<GeoPosition,GeoPosition>(truePos,estimatedPos));
 			}
