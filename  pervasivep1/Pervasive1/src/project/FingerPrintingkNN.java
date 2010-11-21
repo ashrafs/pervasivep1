@@ -63,20 +63,19 @@ public class FingerPrintingkNN {
 		onlineTrace = trace.getOnline();	
 	}
 	
-	void computeFingerPrint()
+	public void computeFingerPrintkNN()
 	{
 		errorsTrueEsti.clear();
 		System.setOut(fileOut);
-		ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>> tePosVector = Neighbour.getEstimatedPositions(k, onlineTrace, offlineTrace);
+		ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>> tePosList = Neighbour.computeTrueAndEstimPos(k, onlineTrace, offlineTrace);
 
-		for(TrueAndEstimatedPos<GeoPosition,GeoPosition> tePos : tePosVector)
+		for(TrueAndEstimatedPos<GeoPosition,GeoPosition> tePos : tePosList)
 		{
+			//Keep errors between true and estimated positions for later plotting
+			errorsTrueEsti.add(tePos.getTruePos().distance(tePos.getEstimatedPos()));
 			//Print true and estimated position on the same line
 			System.out.println(tePos.getTruePos().getX() + ", " + tePos.getTruePos().getY() + ", " + tePos.getTruePos().getZ() + " ; "+
 							   tePos.getEstimatedPos().getX() + ", " + tePos.getEstimatedPos().getY() + ", " + tePos.getEstimatedPos().getZ());
-
-			//Keep errors between true and estimated positions for later plotting
-			errorsTrueEsti.add(tePos.getTruePos().distance(tePos.getEstimatedPos()));
 		}
 		System.setOut(stdOut);
 	}
@@ -99,7 +98,7 @@ public class FingerPrintingkNN {
 			for(int i = 1; i <= NB_ITER; i++) {
 
 				fingerPrintingkNN.computeTrace();
-				fingerPrintingkNN.computeFingerPrint();
+				fingerPrintingkNN.computeFingerPrintkNN();
 				System.out.println("Accuracy experiment #"+i+" done");
 			}
 		}

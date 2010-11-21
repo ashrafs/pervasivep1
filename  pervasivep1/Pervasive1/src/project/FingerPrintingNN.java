@@ -10,9 +10,8 @@ public class FingerPrintingNN {
 		FingerPrintingkNN fingerPrintingkNN = new FingerPrintingkNN(1);
 		
 		for(int i = 1; i <= NB_ITER; i++) {
-
 			fingerPrintingkNN.computeTrace();
-			fingerPrintingkNN.computeFingerPrint();
+			fingerPrintingkNN.computeFingerPrintkNN();
 			System.out.println("Accuracy experiment #"+i+" done");
 		}
 	}
