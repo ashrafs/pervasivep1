@@ -58,7 +58,7 @@ public class ModelkNN {
 		trace = genTrace.getTrace();
 		
 		try {
-			fOut = new FileOutputStream("model"+kParam+"NNresults.txt", true);
+			fOut = new FileOutputStream("model"+kParam+"NN_results.txt", true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -72,7 +72,7 @@ public class ModelkNN {
 	 */
 	public ModelkNN(int kParam)
 	{
-		// Loading ModelkNN with default values for the model (cf. slide 34 from Week2SS.pdf)
+		// Loading ModelkNN with default values for the model (cf. slide 34 from Week2SS.pdf, mentioned in Bahl et al.)
 		this(kParam,-33.77, 3.415, 1.0);
 	}
 
