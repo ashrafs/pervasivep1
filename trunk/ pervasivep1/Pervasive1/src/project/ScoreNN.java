@@ -9,13 +9,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 public class ScoreNN {
+	
+	private static ArrayList<Double> listError;
+	private static double interval = 0.5;
 	
 	public static void computeDistance(File fileInput){
 		
 		double realX, realY, realZ;
 		double estX, estY, estZ;
+		double tmp = 0;
+		
+		listError = new ArrayList<Double>();
 		
 		FileInputStream fis = null;
 		
@@ -47,7 +54,10 @@ public class ScoreNN {
 				estZ = Double.parseDouble(lineSplit[11]);
 
 				//System.out.println(realX + " " + realY + " " + realZ + " " + estX + " " + estY + " " + estZ);
-				System.out.println(Neighbour.euclidianDist(realX, estX, realY, estY, realZ, estZ));
+				tmp = Neighbour.euclidianDist(realX, estX, realY, estY, realZ, estZ);
+				//System.out.println(tmp);
+				
+				listError.add(tmp);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -55,10 +65,37 @@ public class ScoreNN {
 		}
 	}
 	
+	
+	public static void errorDistribution(){
+		
+		int tmp;
+		
+		ArrayList<Integer> repartitionError = new ArrayList<Integer>();
+		
+		for ( Double d : listError ){
+			tmp = (int) (d/interval);
+	
+			while ( repartitionError.size() <= tmp ){
+				repartitionError.add(0);
+			}
+
+			repartitionError.set(tmp, repartitionError.get(tmp)+1);
+		}
+		
+		tmp = 0;
+		
+		for ( int i : repartitionError ){
+			System.out.println( tmp*interval + " " + i);
+			tmp++;
+		}
+		
+	}
+	
+	
 	public static void main(String[] args)
 	{
 		String nameInput = null;
-		//nameInput = "fingerPrinting1NNresults.txt";
+		nameInput = "fingerPrinting1NNresults.txt";
 		
 		if(args.length > 0 || nameInput != null )
 		{
@@ -81,8 +118,9 @@ public class ScoreNN {
 			System.setOut(fileOut);	
 	
 			computeDistance(fileInput);
-			
-			System.setOut(stdOut);	
+			errorDistribution();
+
+			System.setOut(stdOut);
 		}
 		else
 		{
