@@ -104,7 +104,7 @@ public class ScoreNN {
 			
 			FileOutputStream fOut = null;
 			try {
-				fOut = new FileOutputStream("scoreNN.txt", false);
+				fOut = new FileOutputStream("scoreNN_"+nameInput, false);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
