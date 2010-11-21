@@ -29,7 +29,6 @@ public class ScoreNN {
 		try {
 			fis = new FileInputStream(fileInput);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -60,7 +59,6 @@ public class ScoreNN {
 				listError.add(tmp);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -95,8 +93,8 @@ public class ScoreNN {
 	public static void main(String[] args)
 	{
 		String nameInput = null;
-		nameInput = "fingerPrinting1NNresults.txt";
-		
+//		nameInput = "fingerPrinting1NN_results.txt";
+
 		if(args.length > 0 || nameInput != null )
 		{
 			if (nameInput == null)
@@ -108,7 +106,6 @@ public class ScoreNN {
 			try {
 				fOut = new FileOutputStream("scoreNN.txt", false);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

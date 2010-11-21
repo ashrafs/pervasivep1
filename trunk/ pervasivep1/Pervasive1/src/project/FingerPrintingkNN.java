@@ -45,7 +45,7 @@ public class FingerPrintingkNN {
 		trace = genTrace.getTrace();
 
 		try {
-			fOut = new FileOutputStream("fingerPrinting" + k + "NNresults.txt", true);
+			fOut = new FileOutputStream("fingerPrinting" + k + "NN_results.txt", true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
