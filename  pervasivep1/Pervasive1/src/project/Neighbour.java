@@ -40,7 +40,6 @@ public class Neighbour {
 				ss3 = entry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(2));
 
 				for(TraceEntry offEntry: offlineTrace) {
-
 					if(offEntry.getSignalStrengthSamples().keySet().containsAll(arr))
 					{
 						double m1 = offEntry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(0));
@@ -56,7 +55,7 @@ public class Neighbour {
 								bestEntries.set(0, new EntryWithDist(offEntry, euclSignStrSpaceDist));
 							}
 						}
-						// Sort available AP by signal strength
+						// Sort available offline entries by signal strength to have the best distance at the head of the list
 						DistComparator comparator = new DistComparator();
 						Collections.sort(bestEntries,comparator);
 					}
