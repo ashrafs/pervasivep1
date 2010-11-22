@@ -66,7 +66,7 @@ public class ScoreNN {
 	
 	public static void errorDistribution(){
 		
-		int tmp;
+		int tmp, lenRepartitionError, lenListError;
 		
 		ArrayList<Integer> repartitionError = new ArrayList<Integer>();
 		
@@ -80,10 +80,17 @@ public class ScoreNN {
 			repartitionError.set(tmp, repartitionError.get(tmp)+1);
 		}
 		
-		tmp = 0;
+		lenRepartitionError = repartitionError.size();
+		lenListError = listError.size();
 		
+		for ( int i = 1; i<lenRepartitionError; i++ ){
+			repartitionError.set(i, repartitionError.get(i) + repartitionError.get(i-1) );
+		}		
+		
+		tmp = 1;
+
 		for ( int i : repartitionError ){
-			System.out.println( tmp*interval + " " + i);
+			System.out.println( tmp*interval + " " + (double) i / lenListError );
 			tmp++;
 		}
 		
@@ -93,7 +100,7 @@ public class ScoreNN {
 	public static void main(String[] args)
 	{
 		String nameInput = null;
-//		nameInput = "fingerPrinting1NN_results.txt";
+		nameInput = "model1NN_results.txt";
 
 		if(args.length > 0 || nameInput != null )
 		{
@@ -121,7 +128,7 @@ public class ScoreNN {
 		}
 		else
 		{
-			System.out.println("Usage : need the name of the file in argument or define it in the main l.67");
+			System.out.println("Usage : need the name of the file in argument or define it in the main l.103");
 		}
 	}
 }
