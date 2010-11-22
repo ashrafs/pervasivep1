@@ -100,7 +100,7 @@ public class ScoreNN {
 	public static void main(String[] args)
 	{
 		String nameInput = null;
-		nameInput = "model1NN_results.txt";
+		//nameInput = "model1NN_results.txt";
 
 		if(args.length > 0 || nameInput != null )
 		{
