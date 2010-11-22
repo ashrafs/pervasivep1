@@ -23,7 +23,7 @@ public class Neighbour {
 	 * @return
 	 */
 	public static ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>> computeTrueAndEstimPos(int k, List<TraceEntry> onlineTrace, List<TraceEntry> offlineTrace)
-	{
+	{	
 		ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>> teList = new ArrayList<TrueAndEstimatedPos<GeoPosition,GeoPosition>>();
 		
 		for(TraceEntry entry: onlineTrace) {
@@ -47,7 +47,6 @@ public class Neighbour {
 						double m2 = offEntry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(1));
 						double m3 = offEntry.getSignalStrengthSamples().getAverageSignalStrength(arr.get(2));
 						double euclSignStrSpaceDist = euclidianDist(ss1, m1, ss2, m2, ss3, m3);
-
 						if(bestEntries.size() < k)
 						{
 							bestEntries.add(new EntryWithDist(offEntry, euclSignStrSpaceDist));
@@ -64,7 +63,7 @@ public class Neighbour {
 				}
 				
 				//Compute true position
-				GeoPosition truePos = new GeoPosition(entry.getGeoPosition().getX() , entry.getGeoPosition().getY(), entry.getGeoPosition().getZ());
+				GeoPosition tPos = new GeoPosition(entry.getGeoPosition().getX() , entry.getGeoPosition().getY(), entry.getGeoPosition().getZ());
 
 				//Compute estimated position using the first k best entries
 				double estimX = 0, estimY = 0, estimZ = 0;
@@ -75,9 +74,9 @@ public class Neighbour {
 					estimY = estimY + bestEntries.get(i).traceEntry.getGeoPosition().getY();
 					estimZ = estimZ + bestEntries.get(i).traceEntry.getGeoPosition().getZ();
 				}
-				GeoPosition estimatedPos = new GeoPosition(estimX/k, estimY/k, estimZ/k); // create average position
-				
-				teList.add(new TrueAndEstimatedPos<GeoPosition,GeoPosition>(truePos,estimatedPos));
+				estimX = estimX/k; estimY = estimY/k; estimZ = estimZ/k;  // create average position
+				GeoPosition ePos = new GeoPosition(estimX, estimY, estimZ);				
+				teList.add(new TrueAndEstimatedPos<GeoPosition,GeoPosition>(tPos,ePos));
 			}
 		}
 		return teList;
@@ -108,6 +107,6 @@ class EntryWithDist
 
 class DistComparator implements Comparator<EntryWithDist> {
 	public int compare(EntryWithDist ewd1, EntryWithDist ewd2) {
-		return ewd2.compareTo(ewd1);	
+		return ewd1.compareTo(ewd2);   
 	}
 }

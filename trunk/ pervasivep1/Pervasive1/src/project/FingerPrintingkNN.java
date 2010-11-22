@@ -88,11 +88,11 @@ public class FingerPrintingkNN {
 
 		if(args.length > 0)
 		{
-			int k = Integer.parseInt(args[0]);
-			FingerPrintingkNN fingerPrintingkNN = new FingerPrintingkNN(k);
+			int paramK = Integer.parseInt(args[0]);
+			FingerPrintingkNN fingerPrintingkNN = new FingerPrintingkNN(paramK);
 			
 			System.setOut(stdOut);
-			System.out.println("Starting the "+NB_ITER+" computations for fingerPrinting"+k+"NN...");
+			System.out.println("Starting the "+NB_ITER+" computations for fingerPrinting"+paramK+"NN...");
 			System.setOut(fileOut);
 
 			for(int i = 1; i <= NB_ITER; i++) {
